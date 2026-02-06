@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clawdbot Wallet Deposit</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background-color: #1e293b;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 { margin-bottom: 0.5rem; color: #38bdf8; }
+        p { margin-bottom: 1.5rem; color: #94a3b8; }
+        #canvas {
+            margin-bottom: 1.5rem;
+            border: 10px solid #fff;
+            border-radius: 8px;
+        }
+        .address-box {
+            background-color: #334155;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            user-select: all;
+            cursor: pointer;
+        }
+        .network-badge {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .note {
+            font-size: 0.8rem;
+            color: #ef4444;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Deposit ETH</h1>
+        <div class="network-badge">Network: Base (L2)</div>
+        <p>エージェントを稼動させる燃料(Gas)を送金してください。</p>
+        
+        <canvas id="canvas"></canvas>
+        
+        <div class="address-box" id="address" onclick="copyAddress()">
+            0x1f8EbB7f94dE2B50F9fFE81f65C9B68EED7fd0CD
+        </div>
+        
+        <p style="font-size: 0.9rem;">クリックしてアドレスをコピー</p>
+        
+        <div class="note">
+            ⚠️ 重要: 必ず <strong>Baseネットワーク</strong> で送金してください。<br>
+            Ethereum Mainnetへの送金は届きません。
+        </div>
+    </div>
+
+    <script>
+        const address = "0x1f8EbB7f94dE2B50F9fFE81f65C9B68EED7fd0CD";
+        
+        QRCode.toCanvas(document.getElementById('canvas'), address, { 
+            width: 200,
+            margin: 0,
+            color: {
+                dark: '#000000',
+                light: '#ffffff'
+            }
+        }, function (error) {
+            if (error) console.error(error)
+            console.log('success!');
+        });
+
+        function copyAddress() {
+            navigator.clipboard.writeText(address).then(() => {
+                const el = document.getElementById('address');
+                const originalText = el.innerText;
+                el.innerText = "Copied!";
+                el.style.backgroundColor = "#22c55e";
+                setTimeout(() => {
+                    el.innerText = originalText;
+                    el.style.backgroundColor = "#334155";
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+</html>
