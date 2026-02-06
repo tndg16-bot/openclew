@@ -1,0 +1,15 @@
+{
+  "name": "llm-provider",
+  "version": "1.0.0",
+  "description": "LLM provider skill with Kimi 2.5 support for Clawdbot",
+  "main": "llm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["llm", "kimi", "moonshot", "ai"],
+  "author": "Clawdbot",
+  "license": "ISC",
+  "dependencies": {
+    "openai": "^4.77.0"
+  }
+}

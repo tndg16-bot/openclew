@@ -1,0 +1,16 @@
+{
+  "name": "line-connector",
+  "version": "1.0.0",
+  "description": "LINE Messaging API connector skill for Clawdbot",
+  "main": "line.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["line", "messaging", "webhook"],
+  "author": "Clawdbot",
+  "license": "ISC",
+  "dependencies": {
+    "@line/bot-sdk": "^10.5.0",
+    "express": "^4.21.0"
+  }
+}
