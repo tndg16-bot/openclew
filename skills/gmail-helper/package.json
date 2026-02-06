@@ -1,0 +1,15 @@
+{
+  "name": "gmail-helper",
+  "version": "1.0.0",
+  "description": "Gmail reading and search skill for Clawdbot",
+  "main": "gmail.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["gmail", "email", "oauth2"],
+  "author": "Clawdbot",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^144.0.0"
+  }
+}

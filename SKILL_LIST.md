@@ -137,6 +137,141 @@ Discord通知（成功/失敗を報告）
 
 ---
 
+## 5. 📧 Gmail Helper （Gmail連携）[NEW]
+
+Gmailのメールを確認・検索するスキルです。OAuth2認証でGmail APIと連携し、メールの一覧表示、本文読み取り、検索が可能です。
+
+### 使い方
+
+**メール一覧:**
+```bash
+node skills/gmail-helper/gmail.js list
+node skills/gmail-helper/gmail.js list --count 5
+```
+
+**メール読み取り:**
+```bash
+node skills/gmail-helper/gmail.js read <messageId>
+```
+
+**メール検索:**
+```bash
+node skills/gmail-helper/gmail.js search "from:example@gmail.com"
+node skills/gmail-helper/gmail.js search "subject:invoice after:2024/01/01"
+```
+
+**未読メール:**
+```bash
+node skills/gmail-helper/gmail.js unread
+```
+
+### セットアップ
+1. Google Cloud ConsoleでGmail APIを有効化
+2. OAuth 2.0認証情報を取得し `~/.clawdbot/credentials/google.json` に保存
+3. `node scripts/gmail-oauth.js` で認証フローを実行
+4. `cd skills/gmail-helper && npm install`
+
+### 設定ファイル
+- `~/.clawdbot/credentials/google.json` - OAuth認証情報
+- `~/.clawdbot/credentials/token.json` - アクセストークン
+
+---
+
+## 6. 💬 LINE Connector （LINE連携）[NEW]
+
+LINE Messaging APIと連携してメッセージの送受信を行うスキルです。Webhookサーバーでメッセージ受信も可能です。
+
+### 使い方
+
+**メッセージ送信:**
+```bash
+node skills/line-connector/line.js send <userId> "こんにちは"
+```
+
+**Webhookサーバー起動:**
+```bash
+node skills/line-connector/line.js webhook
+```
+
+**チャネル情報確認:**
+```bash
+node skills/line-connector/line.js status
+```
+
+**ユーザープロフィール取得:**
+```bash
+node skills/line-connector/line.js profile <userId>
+```
+
+### セットアップ
+1. [LINE Developers](https://developers.line.biz/) でMessaging APIチャネルを作成
+2. Channel Access TokenとChannel Secretを取得
+3. `~/.clawdbot/credentials/line.json` に保存:
+   ```json
+   {
+     "channelAccessToken": "YOUR_TOKEN",
+     "channelSecret": "YOUR_SECRET"
+   }
+   ```
+4. `cd skills/line-connector && npm install`
+5. Webhook URLをLINE Developersコンソールに設定
+
+### 設定ファイル
+- `~/.clawdbot/credentials/line.json` - LINE API認証情報
+
+---
+
+## 7. 🤖 LLM Provider （Kimi 2.5 / マルチLLM）[NEW]
+
+Moonshot AI Kimi 2.5モデルを使ったチャット機能。OpenAI互換APIでプロバイダー切替が可能です。
+
+### 使い方
+
+**チャット（ストリーミング出力）:**
+```bash
+node skills/llm-provider/llm.js chat "量子コンピューティングについて説明して"
+```
+
+**思考モード:**
+```bash
+node skills/llm-provider/llm.js chat --think "この数学の問題を解いて"
+```
+
+**利用可能モデル一覧:**
+```bash
+node skills/llm-provider/llm.js models
+```
+
+**設定表示/変更:**
+```bash
+node skills/llm-provider/llm.js config
+node skills/llm-provider/llm.js config set provider deepseek
+node skills/llm-provider/llm.js config set model kimi-k2
+```
+
+### セットアップ
+1. [Moonshot AI Platform](https://platform.moonshot.ai/) でAPIキーを取得
+2. `~/.clawdbot/credentials/moonshot.json` に保存:
+   ```json
+   {
+     "apiKey": "YOUR_API_KEY"
+   }
+   ```
+3. `cd skills/llm-provider && npm install`
+
+### 対応プロバイダー
+| プロバイダー | モデル例 |
+|---|---|
+| moonshot | kimi-k2.5, kimi-k2, kimi-k2-thinking |
+| openai | gpt-4o, gpt-4o-mini |
+| deepseek | deepseek-chat, deepseek-reasoner |
+
+### 設定ファイル
+- `~/.clawdbot/credentials/moonshot.json` - API認証情報
+- `~/.clawdbot/skills/llm-provider/config.json` - モデル設定
+
+---
+
 ## スキルの管理
 
 ### 一覧表示
