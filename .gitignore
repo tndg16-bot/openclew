@@ -50,3 +50,9 @@ skills/error-auto-healer/EOF
 **/token.json
 **/*-credentials.json
 **/*-token.json
+
+# Clawdbot credentials (exclude secrets)
+.clawdbot/credentials/
+.clawdbot/.env
+.clawdbot/logs/
+.clawdbot/tmp/

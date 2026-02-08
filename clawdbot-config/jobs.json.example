@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "morning-daily-note",
+      "name": "朝のデイリーノート通知",
+      "enabled": true,
+      "schedule": {
+        "cron": "0 9 * * *",
+        "timezone": "Asia/Tokyo"
+      },
+      "sessionKey": "main",
+      "text": "おはよう！☀️ 今日のデイリーノートを書こう！\n\nTemplates/Daily Note.md を使って今日の目標を立ててみてね！"
+    },
+    {
+      "id": "evening-reminder",
+      "name": "夜の振り返りリマインダー",
+      "enabled": true,
+      "schedule": {
+        "cron": "0 22 * * *",
+        "timezone": "Asia/Tokyo"
+      },
+      "sessionKey": "main",
+      "text": "おやすみ前の振り返りタイムです！🌙\n\n今日のデイリーノートを振り返って、明日の準備をしましょう。\n\nGitHub進捗も確認しよう！\n• portfolio-site: https://github.com/tndg16-bot/portfolio-site/issues\n• xboost: https://github.com/tndg16-bot/xboost/issues"
+    }
+  ]
+}
