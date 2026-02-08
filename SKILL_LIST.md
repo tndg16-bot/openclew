@@ -72,11 +72,11 @@ Obsidianのデイリーノートに書かれたタスクを自動検知し、エ
 
 ---
 
-## 4. 🤖 Error Auto Healer （エラー自動修復）[NEW]
+## 4. 🤖 Error Auto Healer v2.0 （エラー自動修復）[UPGRADED]
 
 GitHub ActionsやVercelのビルドエラーを自動検知し、AIが原因を解析して修正コードを生成・コミット・プッシュし、最終的にCI/CDパイプラインを再実行する完全自動化スキルです。
 
-### 機能
+### 基本機能
 - ✅ **自動エラー検知**: Gmailを監視してエラーメールを検出
 - 🔍 **エラー解析**: GitHub Actions/Vercelのエラーを自動解析
 - 🧠 **AI自動修復**: OpenClawがエラーを分析し修正コードを生成
@@ -84,56 +84,36 @@ GitHub ActionsやVercelのビルドエラーを自動検知し、AIが原因を�
 - 📱 **Discord通知**: 全ての処理をDiscordにリアルタイム通知
 - 🛡️ **セーフガード**: 無限ループ防止、最大試行回数制限
 
+### v2.0 新機能
+- 📝 **GitHub Issue自動作成**: エラー検出時にIssueを自動作成
+- 🔃 **PR自動作成**: 修復コードをPRとして自動作成（レビュアー指定可）
+- 🔀 **PR自動マージ**: CI通過後の自動マージ（squash/merge/rebase対応）
+- ☁️ **Vercel自動再デプロイ**: Vercel APIで自動再デプロイ
+- 📊 **エラー履歴分析**: SQLiteによる高度な統計分析・レポート生成
+- 🌐 **Webスクレイピング強化**: GitHub Actions/Vercelログの自動取得・解析
+
 ### 使い方
 
-**監視モードで起動:**
 ```bash
-node ~/.clawdbot/skills/error-auto-healer/healer.js start
-```
-
-**ステータス確認:**
-```bash
-node ~/.clawdbot/skills/error-auto-healer/healer.js status
-```
-
-**修復履歴確認:**
-```bash
-node ~/.clawdbot/skills/error-auto-healer/healer.js history
+node healer.js start     # 監視モードで起動
+node healer.js status    # ステータス確認
+node healer.js history   # 修復履歴確認
+node healer.js analyze   # エラー履歴分析レポート
+node healer.js test      # テスト実行
+node healer.js reset     # 履歴リセット
+node monitor.js start    # Gmail監視のみ起動
 ```
 
 ### セットアップ手順
 
-1. **Discordチャンネル作成**: 「🔧error-auto-healer」チャンネルを作成
-2. **Gmail API設定**: Google Cloud ConsoleでGmail APIを有効化し、認証情報を取得
-3. **GitHub認証**: Personal Access Tokenを発行
-4. **設定ファイル編集**: `config.json`に各種設定を記述
-5. **依存関係インストール**: `npm install`
-
-### 動作フロー
-```
-Gmailエラー通知検知
-    ↓
-エラー解析（リポジトリ・ブランチ・エラー内容を抽出）
-    ↓
-Discord通知（エラー検知を報告）
-    ↓
-AI修復プロセス開始
-    ↓
-リポジトリクローン → ブランチ作成 → 修正適用 → コミット → プッシュ
-    ↓
-GitHub Actions再実行
-    ↓
-Discord通知（成功/失敗を報告）
-```
-
-### セーフガード機能
-- **クールダウン**: 同じエラーに対する連続修復を30分間防止
-- **最大試行回数**: 同じエラーに対して最大3回まで試行
-- **ブランチ保護**: main/masterへの直接pushをブロック
-- **完全ログ**: 全ての修復試行を履歴として保存
+1. **依存関係**: `cd skills/error-auto-healer && npm install`
+2. **設定作成**: `cp config.template.json config.json` → トークン設定
+3. **Gmail認証**: `node monitor.js --authorize`
+4. **起動**: `node healer.js start`
 
 ### 設定ファイル
-`~/.clawdbot/skills/error-auto-healer/`
+- `skills/error-auto-healer/config.json` - メイン設定（gitignore対象）
+- `skills/error-auto-healer/config.template.json` - テンプレート
 
 ---
 
