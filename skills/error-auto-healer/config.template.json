@@ -1,0 +1,75 @@
+{
+  "version": "2.0.0",
+  "mode": "auto",
+  "monitoring": {
+    "intervalMinutes": 2,
+    "gmailLabel": "error-notifications",
+    "processedLabel": "error-auto-healed"
+  },
+  "github": {
+    "token": "YOUR_GITHUB_TOKEN",
+    "autoCreateIssue": true,
+    "autoMerge": false,
+    "mergeMethod": "squash",
+    "reviewers": [],
+    "autoRetry": true,
+    "maxRetries": 3
+  },
+  "gmail": {
+    "credentialsPath": "./gmail-credentials.json",
+    "tokenPath": "./gmail-token.json",
+    "filters": [
+      {
+        "name": "GitHub Actions",
+        "from": "notifications@github.com",
+        "subjectContains": ["failed", "failure", "error"],
+        "enabled": true
+      },
+      {
+        "name": "Vercel",
+        "from": "notifications@vercel.com",
+        "subjectContains": ["build failed", "deployment failed"],
+        "enabled": true
+      }
+    ]
+  },
+  "vercel": {
+    "token": "YOUR_VERCEL_TOKEN",
+    "teamId": "",
+    "autoRedeploy": false
+  },
+  "discord": {
+    "webhookUrl": "YOUR_DISCORD_WEBHOOK_URL",
+    "notifyOn": {
+      "errorDetected": true,
+      "healingStarted": true,
+      "healingSuccess": true,
+      "healingFailed": true,
+      "issueCreated": true,
+      "prCreated": true,
+      "maxRetriesReached": true
+    }
+  },
+  "safety": {
+    "maxHealingAttempts": 10,
+    "cooldownMinutes": 0,
+    "sameErrorThreshold": 1,
+    "requireConfirmation": false,
+    "blockedRepositories": [],
+    "blockedBranches": ["main", "master"],
+    "allowForcePush": false
+  },
+  "healing": {
+    "strategies": ["ai-fix", "dependency-update", "lint-fix", "test-skip"],
+    "preferredStrategy": "ai-fix",
+    "createPullRequest": true,
+    "commitMessageTemplate": "🤖 Auto-fix: {errorType}\n\n{description}\n\nFixed by Error Auto Healer",
+    "branchNameTemplate": "auto-heal/{timestamp}-{errorId}"
+  },
+  "logging": {
+    "level": "info",
+    "logToFile": true,
+    "logDir": "./logs",
+    "retentionDays": 30
+  }
+}
