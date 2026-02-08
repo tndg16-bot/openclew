@@ -1,0 +1,93 @@
+{
+  "discord": {
+    "guildId": null,
+    "taskChannelId": null,
+    "trackChannels": [],
+    "ignoreBots": true,
+    "maxMessagesPerScan": 500
+  },
+  "analysis": {
+    "lookbackDays": 7,
+    "taskKeywords": [
+      "やる",
+      "タスク",
+      "todo",
+      "実装",
+      "作る",
+      "修正",
+      "対応",
+      "準備",
+      "調査",
+      "確認",
+      "fix",
+      "implement",
+      "create",
+      "respond",
+      "prepare",
+      "investigate",
+      "check"
+    ],
+    "completionKeywords": [
+      "完了",
+      "やった",
+      "解決",
+      "finished",
+      "done",
+      "done!",
+      "finished!",
+      "solved!",
+      "解決済"
+    ],
+    "progressKeywords": {
+      "started": ["着手", "開始", "開始", "started", "begin"],
+      "working": ["作業中", "実装中", "working on", "implementing"],
+      "blocked": ["待機", "保留", "waiting", "blocked", "paused"]
+    },
+    "priorityKeywords": {
+      "high": ["緊急", "重要", "優先", "urgent", "重要", "priority", "high"],
+      "medium": ["通常", "中", "normal", "normal", "medium"],
+      "low": ["低い", "小", "low", "minor", "低"]
+    }
+  },
+  "autoComplete": {
+    "enabled": true,
+    "inactivityThreshold": "24h",
+    "confidenceThreshold": 0.7,
+    "requireConfirmation": false,
+    "completionEmojis": ["✅", "🎉", "🙌", "👍", "✨"]
+  },
+  "learning": {
+    "enabled": true,
+    "adaptKeywords": true,
+    "learnUserPatterns": true,
+    "feedbackCollection": true,
+    "minConfidence": 0.6,
+    "maxLearnedKeywords": 100
+  },
+  "notifications": {
+    "channels": ["discord"],
+    "dailyReport": {
+      "enabled": true,
+      "time": "21:00",
+      "timezone": "Asia/Tokyo",
+      "format": "detailed"
+    },
+    "realtime": {
+      "enabled": true,
+      "onTaskCreated": true,
+      "onTaskCompleted": true,
+      "onPriorityChange": true
+    }
+  },
+  "storage": {
+    "type": "file",
+    "path": "./tasks.json",
+    "backupEnabled": true,
+    "backupInterval": "1h",
+    "maxBackupCount": 10
+  },
+  "schedule": {
+    "scanInterval": "15m",
+    "dailyReportTime": "0 21 * * *"
+  }
+}
