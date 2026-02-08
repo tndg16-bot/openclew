@@ -1,0 +1,61 @@
+{
+  "api": {
+    "enabled": true,
+    "baseUrl": "https://api.github.com",
+    "timeout": 30000
+  },
+  "repository": {
+    "owner": "tndg16-bot",
+    "repo": "openclew",
+    "defaultBranch": "main"
+  },
+  "issues": {
+    "enabled": true,
+    "autoLabel": true,
+    "defaultLabels": ["enhancement", "bug", "question", "documentation"],
+    "autoAssign": false,
+    "assignees": []
+  },
+  "pullRequests": {
+    "enabled": true,
+    "autoMerge": false,
+    "requireReviews": true,
+    "defaultMergeMethod": "squash"
+  },
+  "webhooks": {
+    "enabled": true,
+    "secret": "",
+    "allowedEvents": [
+      "issues",
+      "issue_comment",
+      "pull_request",
+      "pull_request_review",
+      "push",
+      "workflow_run"
+    ]
+  },
+  "actions": {
+    "enabled": true,
+    "notifyOnFailure": true,
+    "notifyOnSuccess": false,
+    "createIssueOnFailure": true,
+    "failureLabels": ["ci-failure"]
+  },
+  "notifications": {
+    "enabled": true,
+    "channels": {
+      "github_events": "general",
+      "pr_merged": "general",
+      "issues_created": "issues"
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "ttl": 300000,
+    "maxSize": 100
+  },
+  "rateLimit": {
+    "warnThreshold": 100,
+    "blockThreshold": 50
+  }
+}
