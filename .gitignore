@@ -56,3 +56,11 @@ skills/error-auto-healer/EOF
 .clawdbot/.env
 .clawdbot/logs/
 .clawdbot/tmp/
+
+# Skill credentials and sensitive data
+skills/**/credentials.json
+skills/**/token.json
+skills/**/node_modules/
+skills/**/package-lock.json
+skills/**/*.db
+skills/**/*.log

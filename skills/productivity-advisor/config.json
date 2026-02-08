@@ -1,0 +1,32 @@
+{
+    "schedule": {
+        "enabled": true,
+        "cron": "0 11 * * *",
+        "timezone": "Asia/Tokyo"
+    },
+    "analysis": {
+        "lookbackDays": 7,
+        "sources": [
+            "obsidian",
+            "work-tracker"
+        ]
+    },
+    "notifications": {
+        "discord": true,
+        "obsidian": true
+    },
+    "obsidian": {
+        "vaultRoot": "C:\\Users\\chatg\\Obsidian Vault\\papa-notes",
+        "dailyNotesPath": "Notes/daily",
+        "outputPath": "Notes/productivity-tips"
+    },
+    "tips": {
+        "maxPerDay": 3,
+        "categories": [
+            "time-management",
+            "automation",
+            "health",
+            "workflow"
+        ]
+    }
+}

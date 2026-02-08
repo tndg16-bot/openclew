@@ -1,0 +1,19 @@
+{
+  "learning": {
+    "enabled": true,
+    "analysisInterval": "weekly",
+    "patternThreshold": 0.7,
+    "autoGenerateSkills": false,
+    "maxPatterns": 50,
+    "contextWindow": "30d"
+  },
+  "obsidian": {
+    "enabled": true,
+    "vaultPath": "~/Obsidian Vault/AI-Learning",
+    "autoSync": true
+  },
+  "suggestions": {
+    "proactive": true,
+    "quietHours": { "start": "23:00", "end": "07:00" }
+  }
+}

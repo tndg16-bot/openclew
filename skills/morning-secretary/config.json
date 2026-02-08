@@ -1,0 +1,31 @@
+{
+  "schedule": {
+    "enabled": true,
+    "cron": "0 8,20 * * *",
+    "timezone": "Asia/Tokyo",
+    "description": "朝8時と夜20時に自動実行"
+  },
+  "gmail": {
+    "maxResults": 10,
+    "summarizeLength": 3,
+    "excludeLabels": ["Spam", "Promotions", "Social"],
+    "minImportance": "high"
+  },
+  "calendar": {
+    "includeAllDay": true,
+    "includeCancelled": false,
+    "timezone": "Asia/Tokyo"
+  },
+  "notifications": {
+    "channels": ["discord"],
+    "fallbackChannel": null,
+    "voice": false,
+    "voiceProvider": "openai-tts"
+  },
+  "summary": {
+    "maxEmailLength": 100,
+    "maxEventLength": 50,
+    "includeAiComment": true,
+    "suggestTasks": true
+  }
+}
