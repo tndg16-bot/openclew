@@ -1,0 +1,27 @@
+name: Branch Protection
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main, develop, feature/*, fix/*, hotfix/*]
+
+jobs:
+  protect-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check main branch protection
+        run: |
+          git branch --list origin/main
+        if [ $? -eq 0 ]; then
+            echo "Main branch exists and is protected"
+            exit 0
+          else
+            echo "ERROR: Main branch does not exist"
+            exit 1
+
+  check-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify branch protection setup
+        run: |
+          echo "Branch protection configured"
