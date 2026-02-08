@@ -1,0 +1,35 @@
+{
+  "server": {
+    "enabled": true,
+    "port": 3000,
+    "host": "localhost"
+  },
+  "refresh": {
+    "interval": 30000,
+    "autoRefresh": true
+  },
+  "data": {
+    "patternsPath": "skills/self-learning-agent/data/patterns.json",
+    "learningLogPath": "skills/self-learning-agent/data/learning-log.json",
+    "exportPath": "exports/learning-data"
+  },
+  "visualization": {
+    "chartJsVersion": "4.4.1",
+    "theme": "dark",
+    "maxPatterns": 10,
+    "maxLogEntries": 50
+  },
+  "websocket": {
+    "enabled": true,
+    "heartbeatInterval": 60000
+  },
+  "export": {
+    "formats": ["json", "csv"],
+    "autoExport": false,
+    "schedule": "daily"
+  },
+  "caching": {
+    "enabled": true,
+    "ttl": 300000
+  }
+}
