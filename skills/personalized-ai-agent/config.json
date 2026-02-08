@@ -1,0 +1,85 @@
+{
+  "learning": {
+    "enabled": true,
+    "analysisInterval": "daily",
+    "patternThreshold": 5,
+    "maxContextSize": 1000,
+    "factRetentionDays": 90,
+    "minConfidence": 0.6
+  },
+  "skills": {
+    "autoSelect": true,
+    "fallbackBehavior": "ask_user",
+    "maxConcurrentSkills": 3,
+    "availableSkills": [
+      "self-learning-agent",
+      "productivity-advisor",
+      "morning-secretary",
+      "discord-task-auto-completer",
+      "error-auto-healer"
+    ],
+    "skillTriggers": {
+      "self-learning-agent": ["学習", "パターン", "傾向", "好み", "プロフィール"],
+      "productivity-advisor": ["効率", "生産性", "改善", "ヒント", "効率化"],
+      "morning-secretary": ["朝の", "予定", "メール", "カレンダー", "サマリー"],
+      "discord-task-auto-completer": ["タスク", "完了", "進捗", "状況", "タスク一覧"],
+      "error-auto-healer": ["エラー", "バグ", "問題", "異常", "修正"]
+    }
+  },
+  "profiling": {
+    "enabled": true,
+    "updateInterval": "weekly",
+    "categories": [
+      "communicationStyle",
+      "workingHours",
+      "activeTimeSlots",
+      "preferredChannels"
+    ]
+  },
+  "evolution": {
+    "enabled": true,
+    "suggestNewSkills": true,
+    "minTaskFrequency": 5,
+    "autoGenerateSkills": false,
+    "generateConfidence": 0.8
+  },
+  "memory": {
+    "shortTermSize": 10,
+    "longTermSize": 1000,
+    "userFactsSize": 500,
+    "retentionPolicy": "90d"
+  },
+  "notifications": {
+    "dailySummary": {
+      "enabled": true,
+      "time": "21:00",
+      "timezone": "Asia/Tokyo",
+      "includeSuggestions": true
+    },
+    "weeklyAnalysis": {
+      "enabled": true,
+      "day": "sunday",
+      "detailed": true
+    },
+    "suggestions": {
+      "enabled": true,
+      "quietHours": {
+        "start": "23:00",
+        "end": "07:00"
+      }
+    }
+  },
+  "discord": {
+    "guildId": null,
+    "channels": {
+      "tasks": null,
+      "general": null,
+      "announcements": null
+    }
+  },
+  "schedule": {
+    "dailyAnalysis": "0 21 * * *",
+    "weeklyReport": "0 21 * * 0",
+    "patternAnalysis": "0 */4 * * *"
+  }
+}
