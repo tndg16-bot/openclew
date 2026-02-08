@@ -1,0 +1,49 @@
+{
+  "display": {
+    "showCompleted": true,
+    "showProgress": true,
+    "sortOrder": "priority",
+    "progressBar": true,
+    "compactMode": false
+  },
+  "filters": {
+    "defaultStatus": "all",
+    "defaultPriority": "all",
+    "allowedStatuses": ["pending", "in_progress", "completed", "paused"]
+  },
+  "colors": {
+    "high": "🔴",
+    "medium": "🟡",
+    "low": "🟢",
+    "completed": "✅",
+    "inProgress": "🔄",
+    "paused": "⏸",
+    "pending": "⏳"
+  },
+  "priorities": {
+    "high": 3,
+    "medium": 2,
+    "low": 1
+  },
+  "progress": {
+    "enabled": true,
+    "barLength": 20,
+    "showPercentage": true
+  },
+  "notifications": {
+    "onTaskCreated": true,
+    "onTaskCompleted": true,
+    "onProgressUpdate": false
+  },
+  "storage": {
+    "type": "file",
+    "path": "./tasks.json",
+    "backupEnabled": true,
+    "maxBackupCount": 5
+  },
+  "discord": {
+    "channelId": null,
+    "dm": true,
+    "format": "detailed"
+  }
+}
