@@ -1,0 +1,38 @@
+{
+  "api": {
+    "enabled": true,
+    "credentialsPath": "skills/google-calendar/credentials/credentials.json",
+    "tokenPath": "skills/google-calendar/credentials/token.json",
+    "scope": [
+      "https://www.googleapis.com/auth/calendar",
+      "https://www.googleapis.com/auth/calendar.events"
+    ]
+  },
+  "calendar": {
+    "primary": "primary",
+    "autoSync": true,
+    "syncInterval": 300,
+    "maxRetries": 3,
+    "timeout": 30000
+  },
+  "reminders": {
+    "enabled": true,
+    "defaultReminder": 15,
+    "reminders": [
+      { "method": "email", "minutes": 60 },
+      { "method": "popup", "minutes": 15 }
+    ]
+  },
+  "analysis": {
+    "enabled": true,
+    "trackMeetingHours": true,
+    "trackBusyTime": true,
+    "identifyPatterns": true,
+    "analysisInterval": 3600
+  },
+  "caching": {
+    "enabled": true,
+    "cacheTTL": 600,
+    "maxCachedEvents": 100
+  }
+}
