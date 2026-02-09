@@ -1,0 +1,37 @@
+{
+  "feedback": {
+    "enabled": true,
+    "autoUpdateConfidence": true,
+    "confidenceAdjustment": {
+      "positive": 0.1,
+      "negative": -0.15,
+      "perRating": 0.05
+    },
+    "minFeedbackForUpdate": 3,
+    "retentionDays": 90,
+    "maxFeedbackHistory": 1000
+  },
+  "notifications": {
+    "enabled": true,
+    "negativeFeedbackAlert": true,
+    "negativeThreshold": 0.3,
+    "weeklyReport": true,
+    "reportDay": "sunday"
+  },
+  "analysis": {
+    "enabled": true,
+    "interval": 3600,
+    "trendAnalysis": true,
+    "patternRecognition": true
+  },
+  "learning": {
+    "enabled": true,
+    "applyToPatterns": true,
+    "applyToPredictions": true,
+    "minConfidenceAfterFeedback": 0.4
+  },
+  "storage": {
+    "feedbackPath": "skills/feedback-loop/data/feedback.json",
+    "statsPath": "skills/feedback-loop/data/stats.json"
+  }
+}

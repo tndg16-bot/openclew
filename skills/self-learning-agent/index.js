@@ -120,7 +120,7 @@ class PatternStore {
       maxPatterns: config.maxPatterns || 1000,
       retentionDays: config.retentionDays || 90,
       confidenceDecay: config.confidenceDecay || 0.95,
-      observationWindow: config.observationWindow || 7 // 日
+      observationWindow: config.observationWindow || 7, // 日
       minObservations: config.minObservations || 3
     };
 
@@ -988,6 +988,34 @@ class SelfLearningAgent {
           await this.sendResponse(event, {
             status: 'success',
             data: { predictions }
+          });
+          break;
+
+        case 'update_pattern_confidence':
+          const { patternId, confidence } = params;
+          for (const pattern of this.patternStore.patterns.values()) {
+            if (pattern.id === patternId) {
+              const oldConfidence = pattern.confidence;
+              const delta = confidence - oldConfidence;
+              this.patternStore.updatePatternConfidence(patternId, delta);
+              await this.patternStore.save();
+              await this.sendResponse(event, {
+                status: 'success',
+                data: {
+                  patternId,
+                  oldConfidence,
+                  newConfidence: confidence
+                }
+              });
+              return;
+            }
+          }
+          await this.sendResponse(event, {
+            status: 'error',
+            error: {
+              code: 'ERR_PATTERN_NOT_FOUND',
+              message: `Pattern not found: ${patternId}`
+            }
           });
           break;
 
