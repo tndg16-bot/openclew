@@ -35,7 +35,3 @@ jobs:
           echo "✅ Linter: Passed"
           echo "✅ Tests: Passed"
           echo "✅ Secrets: Passed"
-
-  fail-on:
-    - name: Validation failed
-    run: echo "❌ Validation failed"
