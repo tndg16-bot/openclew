@@ -101,7 +101,7 @@ function formatTask(task, colors, displayConfig) {
   const statusEmoji = getStatusEmoji(task.status, colors);
   const progressBar = displayConfig.progressBar ? generateProgressBar(task.progress, displayConfig.progress) : '';
 
-  const output = `${statusEmoji} ${task.title} (${task.progress}%)`;
+  let output = `${statusEmoji} ${task.title} (${task.progress}%)`;
   output += `\n  作成日: ${formatDate(task.createdAt)} | 期限: ${formatDate(task.dueDate)} | アサイン: ${task.assignedTo}`;
 
   if (progressBar) {
@@ -255,7 +255,7 @@ async function run(context, command = 'list') {
       return { success: true, taskCount: tasks.length };
 
     case 'complete':
-      const taskId = context.args?.[0];
+      const taskId = context?.args?.[0] || process.argv[3];
       if (!taskId) {
         return { success: false, error: 'Task ID required' };
       }
@@ -272,8 +272,8 @@ async function run(context, command = 'list') {
       return completeResult;
 
     case 'update':
-      const updateTaskId = context.args?.[0];
-      const progress = parseInt(context.args?.[1]);
+      const updateTaskId = context?.args?.[0] || process.argv[3];
+      const progress = parseInt(context?.args?.[1] || process.argv[4]);
 
       if (!updateTaskId || isNaN(progress)) {
         return { success: false, error: 'Task ID and progress required' };
@@ -291,7 +291,7 @@ async function run(context, command = 'list') {
       return updateResult;
 
     case 'add':
-      const title = context.args?.[0];
+      const title = context?.args?.[0] || process.argv[3];
       if (!title) {
         return { success: false, error: 'Task title required' };
       }

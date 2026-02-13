@@ -1,7 +1,7 @@
 {
   "github": {
     "enabled": true,
-    "tokenPath": "~/.clawdbot/github-token.txt",
+    "tokenEnvVar": "GITHUB_TOKEN",
     "apiBaseUrl": "https://api.github.com",
     "monitoredRepositories": [
       {
@@ -12,7 +12,8 @@
       }
     ],
     "pollInterval": 300000,
-    "maxIssuesPerPoll": 10
+    "maxIssuesPerPoll": 10,
+    "useGhCli": true
   },
   "sandbox": {
     "enabled": true,

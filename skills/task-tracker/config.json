@@ -49,6 +49,8 @@
   "obsidian": {
     "vaultPath": "C:\\Users\\chatg\\Obsidian Vault",
     "dailyNotesFolder": "Daily Notes",
-    "autoLog": true
+    "autoLog": true,
+    "templatePath": "Templates/Daily Note.md",
+    "logFormat": "- [ ] {title} ({progress}%)"
   }
 }

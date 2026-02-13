@@ -1,0 +1,15 @@
+{
+  "tasks": [
+    {
+      "id": "task-1770975410432-5o7206dt5",
+      "title": "テストタスク from OpenClaw",
+      "description": "",
+      "priority": "medium",
+      "status": "pending",
+      "progress": 0,
+      "assignedTo": "unassigned",
+      "createdAt": "2026-02-13T09:36:50.432Z",
+      "dueDate": null
+    }
+  ]
+}
