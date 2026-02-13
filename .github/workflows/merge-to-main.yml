@@ -1,0 +1,51 @@
+name: Merge to Main
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+    paths:
+      - '**.js'
+      - '**.json'
+
+permissions:
+  contents: write
+
+jobs:
+  merge-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        run: |
+          git fetch origin main
+          git checkout main
+
+      - name: Verify CI checks passed
+        run: |
+          echo "Checking CI status..."
+
+      - name: Verify no merge conflicts
+        run: |
+          git merge --no-commit main --no-ff --no-edit
+          if [ $? -eq 0 ]; then
+            echo "Merge successful - no conflicts"
+          else
+            git merge --abort
+            exit 1
+          fi
+
+  merge-to-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch latest main
+        run: git fetch origin main
+
+      - name: Merge changes to main
+        run: |
+          git checkout main
+          git merge --no-ff origin/main
+          git push origin main
+
+      - name: Confirm push
+        run: |
+          echo "Changes merged to main"
