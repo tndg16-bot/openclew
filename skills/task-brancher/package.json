@@ -1,0 +1,23 @@
+{
+  "name": "task-brancher",
+  "version": "1.0.0",
+  "description": "Obsidian task detection with automated Git branch management and progress tracking",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "watch": "node src/index.js"
+  },
+  "keywords": [
+    "obsidian",
+    "git",
+    "branch",
+    "task",
+    "automation",
+    "clawdbot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "crypto": "^1.0.1"
+  }
+}

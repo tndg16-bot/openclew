@@ -1,0 +1,50 @@
+{
+  "vaultRoot": "C:\\Users\\chatg\\Obsidian Vault",
+  "scanDirs": [
+    "Notes/daily",
+    "papa/Notes/daily",
+    "papa-notes/Notes/daily",
+    "papa/Apps"
+  ],
+  "includeExtensions": [".md"],
+  "excludeDirNames": [".git", ".trash", "node_modules"],
+  "scanMaxFiles": 500,
+  "scanMaxBytes": 200000,
+  "idea": {
+    "useLLMExtraction": true,
+    "keywords": [
+      "someday",
+      "want to build",
+      "want to develop",
+      "would like to build",
+      "plan to build",
+      "idea:"
+    ]
+  },
+  "execution": {
+    "enabled": true,
+    "maxPerRun": 1,
+    "cooldownMinutes": 60
+  },
+  "agent": {
+    "name": "main",
+    "timeoutMs": 600000
+  },
+  "discord": {
+    "enabled": false,
+    "botToken": "",
+    "channelId": "",
+    "fetchLimit": 50
+  },
+  "appBaseDir": "C:\\Users\\chatg\\Obsidian Vault\\papa\\Apps\\Main",
+  "notifications": {
+    "writeBackToNote": true,
+    "discordWebhookUrl": ""
+  },
+  "git": {
+    "autoBranch": true,
+    "branchPrefix": "feature",
+    "maxBranchLength": 60,
+    "pushAfterExecution": false
+  }
+}

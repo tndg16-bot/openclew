@@ -1,0 +1,56 @@
+{
+  "vaultRoot": "C:\\Users\\chatg\\Obsidian Vault",
+  "scanDirs": [
+    "Notes/daily",
+    "Dev/Tasks",
+    "papa/Notes/daily"
+  ],
+  "includeExtensions": [".md"],
+  "excludeDirNames": [".git", ".trash", "node_modules"],
+  "scanMaxFiles": 500,
+  "scanMaxBytes": 200000,
+  "task": {
+    "taskHeaders": ["# Tasks", "# Dev Tasks", "# TODO", "# To-Do", "## Tasks", "## Dev Tasks"],
+    "maxTasksPerRun": 5,
+    "skipCompletedTasks": true
+  },
+  "git": {
+    "autoBranch": true,
+    "autoPush": false,
+    "defaultRemote": "origin",
+    "staleBranchCleanup": false,
+    "staleBranchDays": 30
+  },
+  "execution": {
+    "enabled": true,
+    "maxPerRun": 3,
+    "timeoutMs": 600000,
+    "concurrent": false,
+    "cooldownMinutes": 5
+  },
+  "agent": {
+    "name": "main",
+    "timeoutMs": 600000
+  },
+  "notifications": {
+    "discordWebhookUrl": "",
+    "writeBackToNote": true,
+    "logSection": "## Task Brancher Log"
+  },
+  "branchNaming": {
+    "maxBranchLength": 60,
+    "prefixMapping": {
+      "feature": ["implement", "create", "add", "build", "new", "develop"],
+      "fix": ["fix", "bug", "error", "crash", "resolve"],
+      "refactor": ["refactor", "optimize", "improve", "clean", "rework"],
+      "test": ["test", "spec", "coverage", "unit", "e2e"],
+      "docs": ["document", "readme", "guide", "wiki", "manual"],
+      "chore": ["update", "upgrade", "maintenance", "config", "setup"]
+    },
+    "defaultPrefix": "task"
+  },
+  "progress": {
+    "trackSteps": true,
+    "maxProgressEntries": 50
+  }
+}
