@@ -1,0 +1,115 @@
+{
+  "articles": [
+    {
+      "title": "Escaping the \"AI Spaghetti Code\" Trap: How I Refactored My Next.js App with spec-kit",
+      "link": "https://dev.to/wanxinvc/escaping-the-ai-spaghetti-code-trap-how-i-refactored-my-nextjs-app-with-spec-kit-3e5l",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:23:39 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "TIL: Template Strict Locals (TSL)",
+      "link": "https://dev.to/epigene/til-template-strict-locals-tsl-31eb",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:22:32 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "OpenClaw Ecosystem Deep Dive: Personal AI Assistant to Open Source",
+      "link": "https://dev.to/chx381/openclaw-ecosystem-deep-dive-personal-ai-assistant-to-open-source-30nm",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:20:38 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "\"Please Clear Your Cache\" — How I Finally Fixed Flutter Web Caching for Good",
+      "link": "https://dev.to/adriengras/please-clear-your-cache-how-i-finally-fixed-flutter-web-caching-for-good-5dlj",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:17:02 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "Sentiment Analysis in C# - Without Python or External APIs",
+      "link": "https://dev.to/olafur_aron/sentiment-analysis-in-c-without-python-or-external-apis-3jpm",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:13:20 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "Get Started with CSVParse for Node.js (csv-parse npm package)",
+      "link": "https://dev.to/juddee/get-started-with-csvparse-for-nodejs-csv-parse-npm-package-50oh",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:07:52 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "🔑Beginner-Friendly Guide 'Longest Balanced Substring II' - Problem 3714 (C++, Python, JavaScript)",
+      "link": "https://dev.to/om_shree_0709/beginner-friendly-guide-longest-balanced-substring-ii-problem-3714-c-python-javascript-591f",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:04:54 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "How to Collect Payments Using the Payment Orchestrator Flow in v4",
+      "link": "https://dev.to/flutterwaveeng/how-to-collect-payments-using-the-payment-orchestrator-flow-in-v4-458k",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:02:24 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "FirstOrDefault vs SingleOrDefault in C# — The Complete, Practical Guide",
+      "link": "https://dev.to/libintombaby/firstordefault-vs-singleordefault-in-c-the-complete-practical-guide-13p5",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 09:00:00 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    },
+    {
+      "title": "Your Cheap Home Router Has a Hidden CLI — Here's How I Found It",
+      "link": "https://dev.to/dalirnet/your-cheap-home-router-has-a-hidden-cli-heres-how-i-found-it-22oc",
+      "description": "",
+      "pubDate": "Fri, 13 Feb 2026 08:43:24 +0000",
+      "fetchedAt": "2026-02-13T09:31:40.943Z",
+      "feedId": "devto",
+      "feedName": "Dev.to",
+      "category": "programming",
+      "priority": 1
+    }
+  ],
+  "lastFetch": "2026-02-13T09:31:41.330Z"
+}

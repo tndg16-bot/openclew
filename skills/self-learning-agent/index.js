@@ -981,10 +981,10 @@ class SelfLearningAgent {
           break;
 
         case 'get_recommendations':
-          const predictions = this.patternPredictor.predictNextAction(params.context);
+          const recommendations = this.patternPredictor.predictNextAction(params.context);
           await this.sendResponse(event, {
             status: 'success',
-            data: { predictions }
+            data: { predictions: recommendations }
           });
           break;
 
