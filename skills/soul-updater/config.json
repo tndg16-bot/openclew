@@ -1,0 +1,12 @@
+{
+  "updateInterval": "daily",
+  "updateTime": "03:00",
+  "maxChangesPerUpdate": 5,
+  "backupRetentionCount": 10,
+  "enabled": true,
+  "soulPath": "../self-learning-agent/SOUL.md",
+  "longTermMemoryPath": "../self-learning-agent/long-term.json",
+  "improvementThreshold": 0.6,
+  "quietMode": false,
+  "autoBackup": true
+}

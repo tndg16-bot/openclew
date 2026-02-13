@@ -1,23 +1,30 @@
 ---
 name: morning-secretary
-description: 朝の情報収集（Gmail要約・カレンダー取得・タスク提案）を自動化するAI秘書スキル
+description: 朝の情報収集（Gmail要約・カレンダー取得・天気・タスク提案）を自動化するAI秘書スキル
 metadata: {"clawdbot":{"emoji":"🌅"}}
-version: 1.0.0
+version: 2.0.0
 author: user
-tags: [automation, morning-routine, gmail, calendar, secretary]
+tags: [automation, morning-routine, gmail, calendar, weather, secretary, phase2]
 ---
 
-# Morning Secretary Skill
+# Morning Secretary Skill (Phase 2)
 
 朝の情報収集と予定管理を自動化するAI秘書スキルです。
+
+## Phase 2 新機能
+
+Phase 2では以下の機能が追加されました：
+- **天気情報**の取得・表示
+- **Discord通知**の7:00 AM自動送信
+- **モーニングブリーフィング**の生成
 
 ## 機能概要
 
 毎朝7時に自動実行され、以下を行います：
 1. **Gmail未読メール**の取得・要約
 2. **Google Calendar**から今日の予定取得
-3. **優先タスク**の提案
-4. **Discord/LINE**にレポート送信
+3. **天気情報**の取得（OpenWeatherMap API）
+4. **Discord**にレポート送信
 5. **音声通知**対応（オプション）
 
 ## トリガー

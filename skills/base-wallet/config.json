@@ -1,0 +1,16 @@
+{
+  "network": {
+    "name": "Base Mainnet",
+    "chainId": 8453,
+    "rpcUrl": "https://mainnet.base.org"
+  },
+  "security": {
+    "maxTransactionAmount": "0.1",
+    "requireApprovalThreshold": "0.05",
+    "allowlistEnabled": true
+  },
+  "approval": {
+    "discordChannelId": "",
+    "timeoutMinutes": 5
+  }
+}

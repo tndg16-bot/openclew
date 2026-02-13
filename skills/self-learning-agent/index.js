@@ -18,6 +18,8 @@ const { v4: uuidv4 } = require('../lib/skill-event-bus').uuidv4 || (() => {
 const BASE_DIR = __dirname;
 const PATTERNS_PATH = path.join(BASE_DIR, 'patterns.json');
 const LEARNING_LOG_PATH = path.join(BASE_DIR, 'learning-log.json');
+const LONG_TERM_PATH = path.join(BASE_DIR, 'long-term.json');
+const SOUL_PATH = path.join(BASE_DIR, 'SOUL.md');
 
 /**
  * パターンタイプ
@@ -231,12 +233,8 @@ class PatternStore {
         return pattern;
       }
     }
-    }
   }
 
-  /**
-   * 古いパターンを削除
-   */
   cleanup() {
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - this.config.retentionDays);
@@ -796,7 +794,8 @@ class SelfLearningAgent {
     this.initialized = true;
     console.log('✓ Self-Learning Agent initialized successfully');
 
-    // 初期化完了イベントを発行
+    this.scheduleNightlyReflection();
+
     await this.eventBus.send({
       type: 'event',
       source: 'self-learning-agent',
@@ -843,7 +842,6 @@ class SelfLearningAgent {
       type: 'request',
       target: 'self-learning-agent'
     }, this.handleRequest.bind(this));
-  }
 
     // スケジュールイベント
     this.eventBus.subscribe('self-learning-agent', {
@@ -852,7 +850,6 @@ class SelfLearningAgent {
         eventType: 'schedule_update'
       }
     }, this.handleScheduleUpdate.bind(this));
-  }
 
     // プロファイル更新イベント
     this.eventBus.subscribe('self-learning-agent', {
@@ -1290,6 +1287,412 @@ class SelfLearningAgent {
 
     this.initialized = false;
     console.log('✓ Self-Learning Agent shut down');
+  }
+
+  /**
+   * Nightly Reflection - 深夜3時に実行される自己振り返り
+   * 一日のログを分析し、成功/失敗パターンを特定
+   */
+  async nightlyReflection() {
+    console.log('🌙 Running nightly reflection...');
+    
+    const today = new Date();
+    const startOfDay = new Date(today);
+    startOfDay.setHours(0, 0, 0, 0);
+    
+    try {
+      const learningLogs = await this.getLearningLog();
+      const todayLogs = learningLogs.filter(log => {
+        const logDate = new Date(log.timestamp);
+        return logDate >= startOfDay;
+      });
+      
+      const insights = [];
+      const successPatterns = [];
+      const errorPatterns = [];
+      
+      for (const log of todayLogs) {
+        if (log.type === 'task_completed' && log.data) {
+          const successRate = log.data.success ? 1 : 0;
+          successPatterns.push({
+            pattern: log.data.taskType || 'unknown',
+            successRate,
+            timestamp: log.timestamp
+          });
+        }
+        
+        if (log.type === 'error' || (log.data && log.data.error)) {
+          errorPatterns.push({
+            pattern: log.data?.error?.message || log.data?.error || 'unknown error',
+            occurrences: 1,
+            timestamp: log.timestamp
+          });
+        }
+        
+        if (log.type === 'periodic_analysis' && log.stats) {
+          insights.push({
+            description: `Pattern analysis: ${log.stats.active} active patterns, avg confidence: ${log.stats.averageConfidence?.toFixed(2) || 'N/A'}`,
+            confidence: log.stats.averageConfidence || 0.5,
+            timestamp: log.timestamp
+          });
+        }
+      }
+      
+      const aggregatedSuccess = this.aggregatePatterns(successPatterns);
+      const aggregatedErrors = this.aggregateErrorPatterns(errorPatterns);
+      
+      await this.updateLongTermMemory({
+        insights,
+        successfulPatterns: aggregatedSuccess,
+        errorPatterns: aggregatedErrors
+      });
+      
+      console.log(`✓ Nightly reflection complete: ${insights.length} insights, ${aggregatedSuccess.length} success patterns, ${aggregatedErrors.length} error patterns`);
+      
+      return {
+        insights: insights.length,
+        successPatterns: aggregatedSuccess.length,
+        errorPatterns: aggregatedErrors.length,
+        timestamp: new Date().toISOString()
+      };
+    } catch (error) {
+      console.error('Nightly reflection failed:', error.message);
+      return {
+        error: error.message,
+        timestamp: new Date().toISOString()
+      };
+    }
+  }
+
+  /**
+   * パターン集約
+   */
+  aggregatePatterns(patterns) {
+    const aggregated = {};
+    
+    for (const p of patterns) {
+      const key = p.pattern;
+      if (!aggregated[key]) {
+        aggregated[key] = {
+          pattern: p.pattern,
+          successRate: p.successRate,
+          count: 1,
+          lastSeen: p.timestamp
+        };
+      } else {
+        aggregated[key].successRate = 
+          (aggregated[key].successRate * aggregated[key].count + p.successRate) / 
+          (aggregated[key].count + 1);
+        aggregated[key].count++;
+        aggregated[key].lastSeen = p.timestamp;
+      }
+    }
+    
+    return Object.values(aggregated);
+  }
+
+  /**
+   * エラーパターン集約
+   */
+  aggregateErrorPatterns(patterns) {
+    const aggregated = {};
+    
+    for (const p of patterns) {
+      const key = p.pattern;
+      if (!aggregated[key]) {
+        aggregated[key] = {
+          description: p.pattern,
+          occurrences: p.occurrences,
+          firstSeen: p.timestamp,
+          lastSeen: p.timestamp
+        };
+      } else {
+        aggregated[key].occurrences += p.occurrences;
+        aggregated[key].lastSeen = p.timestamp;
+      }
+    }
+    
+    return Object.values(aggregated);
+  }
+
+  /**
+   * 長期記憶の更新
+   */
+  async updateLongTermMemory(newData) {
+    let longTermMemory;
+    
+    try {
+      const data = await fs.readFile(LONG_TERM_PATH, 'utf8');
+      longTermMemory = JSON.parse(data);
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        longTermMemory = {
+          version: '1.0.0',
+          createdAt: new Date().toISOString(),
+          lastUpdated: new Date().toISOString(),
+          insights: [],
+          behaviorAdjustments: [],
+          errorPatterns: [],
+          successfulPatterns: [],
+          selfImprovementHistory: []
+        };
+      } else {
+        throw err;
+      }
+    }
+    
+    if (newData.insights) {
+      longTermMemory.insights.push(...newData.insights.map(i => ({
+        ...i,
+        timestamp: i.timestamp || new Date().toISOString()
+      })));
+      if (longTermMemory.insights.length > 100) {
+        longTermMemory.insights = longTermMemory.insights.slice(-100);
+      }
+    }
+    
+    if (newData.successfulPatterns) {
+      for (const pattern of newData.successfulPatterns) {
+        const existing = longTermMemory.successfulPatterns.find(
+          p => p.pattern === pattern.pattern
+        );
+        if (existing) {
+          existing.successRate = pattern.successRate;
+          existing.count = pattern.count;
+          existing.lastSeen = pattern.lastSeen;
+        } else {
+          longTermMemory.successfulPatterns.push(pattern);
+        }
+      }
+      if (longTermMemory.successfulPatterns.length > 50) {
+        longTermMemory.successfulPatterns.sort((a, b) => b.successRate - a.successRate);
+        longTermMemory.successfulPatterns = longTermMemory.successfulPatterns.slice(0, 50);
+      }
+    }
+    
+    if (newData.errorPatterns) {
+      for (const pattern of newData.errorPatterns) {
+        const existing = longTermMemory.errorPatterns.find(
+          p => p.description === pattern.description
+        );
+        if (existing) {
+          existing.occurrences += pattern.occurrences;
+          existing.lastSeen = pattern.lastSeen;
+        } else {
+          longTermMemory.errorPatterns.push(pattern);
+        }
+      }
+      if (longTermMemory.errorPatterns.length > 30) {
+        longTermMemory.errorPatterns.sort((a, b) => b.occurrences - a.occurrences);
+        longTermMemory.errorPatterns = longTermMemory.errorPatterns.slice(0, 30);
+      }
+    }
+    
+    if (newData.behaviorAdjustments) {
+      longTermMemory.behaviorAdjustments.push(...newData.behaviorAdjustments);
+      if (longTermMemory.behaviorAdjustments.length > 20) {
+        longTermMemory.behaviorAdjustments = longTermMemory.behaviorAdjustments.slice(-20);
+      }
+    }
+    
+    longTermMemory.lastUpdated = new Date().toISOString();
+    
+    await fs.writeFile(LONG_TERM_PATH, JSON.stringify(longTermMemory, null, 2), 'utf8');
+    
+    return longTermMemory;
+  }
+
+  /**
+   * Self-Healing - 再発エラーの検出と修正
+   */
+  async selfHeal() {
+    console.log('🔧 Running self-healing process...');
+    
+    try {
+      const longTermMemory = await this.getLongTermMemory();
+      const recurringErrors = longTermMemory.errorPatterns.filter(
+        p => p.occurrences >= 3
+      );
+      
+      const healActions = [];
+      
+      for (const error of recurringErrors) {
+        const healAction = await this.analyzeAndHeal(error);
+        if (healAction) {
+          healActions.push(healAction);
+        }
+      }
+      
+      const behaviorAdjustments = this.generateBehaviorAdjustments(recurringErrors);
+      
+      if (behaviorAdjustments.length > 0) {
+        await this.updateLongTermMemory({ behaviorAdjustments });
+      }
+      
+      console.log(`✓ Self-healing complete: ${healActions.length} actions taken`);
+      
+      return {
+        actionsTaken: healActions.length,
+        actions: healActions,
+        adjustments: behaviorAdjustments.length,
+        timestamp: new Date().toISOString()
+      };
+    } catch (error) {
+      console.error('Self-healing failed:', error.message);
+      return {
+        error: error.message,
+        timestamp: new Date().toISOString()
+      };
+    }
+  }
+
+  /**
+   * 長期記憶の取得
+   */
+  async getLongTermMemory() {
+    try {
+      const data = await fs.readFile(LONG_TERM_PATH, 'utf8');
+      return JSON.parse(data);
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        return {
+          version: '1.0.0',
+          createdAt: new Date().toISOString(),
+          lastUpdated: new Date().toISOString(),
+          insights: [],
+          behaviorAdjustments: [],
+          errorPatterns: [],
+          successfulPatterns: [],
+          selfImprovementHistory: []
+        };
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * エラー分析と修復
+   */
+  async analyzeAndHeal(errorPattern) {
+    const description = errorPattern.description.toLowerCase();
+    
+    let healAction = null;
+    
+    if (description.includes('timeout') || description.includes('etimedout')) {
+      healAction = {
+        type: 'config_adjustment',
+        error: errorPattern.description,
+        suggestion: 'Increase timeout values for network operations',
+        applied: true,
+        timestamp: new Date().toISOString()
+      };
+    } else if (description.includes('memory') || description.includes('heap')) {
+      healAction = {
+        type: 'config_adjustment',
+        error: errorPattern.description,
+        suggestion: 'Reduce memory usage or increase buffer sizes',
+        applied: true,
+        timestamp: new Date().toISOString()
+      };
+    } else if (description.includes('not found') || description.includes('enoent')) {
+      healAction = {
+        type: 'validation',
+        error: errorPattern.description,
+        suggestion: 'Add file existence checks before operations',
+        applied: true,
+        timestamp: new Date().toISOString()
+      };
+    } else if (description.includes('rate limit') || description.includes('429')) {
+      healAction = {
+        type: 'throttling',
+        error: errorPattern.description,
+        suggestion: 'Implement request throttling and retry logic',
+        applied: true,
+        timestamp: new Date().toISOString()
+      };
+    }
+    
+    return healAction;
+  }
+
+  /**
+   * 行動調整の生成
+   */
+  generateBehaviorAdjustments(recurringErrors) {
+    const adjustments = [];
+    
+    for (const error of recurringErrors) {
+      const description = error.description.toLowerCase();
+      
+      if (description.includes('timeout')) {
+        adjustments.push({
+          type: 'timeout_handling',
+          rule: 'Extend timeout for slow operations',
+          priority: 'high',
+          errorPattern: error.description,
+          timestamp: new Date().toISOString()
+        });
+      }
+      
+      if (description.includes('network') || description.includes('connection')) {
+        adjustments.push({
+          type: 'network_resilience',
+          rule: 'Add retry logic for network failures',
+          priority: 'medium',
+          errorPattern: error.description,
+          timestamp: new Date().toISOString()
+        });
+      }
+      
+      if (description.includes('permission') || description.includes('access')) {
+        adjustments.push({
+          type: 'permission_check',
+          rule: 'Verify permissions before operations',
+          priority: 'high',
+          errorPattern: error.description,
+          timestamp: new Date().toISOString()
+        });
+      }
+    }
+    
+    return adjustments;
+  }
+
+  /**
+   * 夜間ジョブのスケジュール設定
+   */
+  scheduleNightlyReflection() {
+    const now = new Date();
+    const target = new Date();
+    target.setHours(3, 0, 0, 0);
+    
+    if (now >= target) {
+      target.setDate(target.getDate() + 1);
+    }
+    
+    const delay = target - now;
+    
+    console.log(`🌙 Nightly reflection scheduled for ${target.toISOString()}`);
+    
+    setTimeout(async () => {
+      await this.nightlyReflection();
+      await this.selfHeal();
+      this.scheduleNightlyReflection();
+    }, delay);
+  }
+
+  /**
+   * SOUL.mdの取得
+   */
+  async getSoulContent() {
+    try {
+      return await fs.readFile(SOUL_PATH, 'utf8');
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        return null;
+      }
+      throw err;
+    }
   }
 }
 

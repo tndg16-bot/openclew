@@ -1,0 +1,40 @@
+{
+  "discord": {
+    "enabled": true,
+    "channelId": null,
+    "webhookUrl": null
+  },
+  "schedule": {
+    "enabled": true,
+    "times": ["08:00", "18:00"],
+    "timezone": "Asia/Tokyo"
+  },
+  "summary": {
+    "maxArticlesPerSummary": 10,
+    "maxTitleLength": 100,
+    "includeDescription": true,
+    "maxDescriptionLength": 200,
+    "groupByCategory": true,
+    "sortBy": "priority"
+  },
+  "filters": {
+    "excludeKeywords": [],
+    "includeKeywords": [],
+    "minRelevanceScore": 0.5,
+    "deduplicationEnabled": true,
+    "deduplicationWindowHours": 24
+  },
+  "cache": {
+    "enabled": true,
+    "ttl": 3600000,
+    "maxSize": 100
+  },
+  "notifications": {
+    "onFetchError": true,
+    "onNoNewArticles": false
+  },
+  "logging": {
+    "level": "info",
+    "logFile": "./news-curator.log"
+  }
+}

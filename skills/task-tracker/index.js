@@ -324,10 +324,62 @@ if (require.main === module) {
   });
 }
 
+function getDailyNotePath() {
+  const config = loadConfigSync();
+  const vaultPath = config.obsidian?.vaultPath || process.env.OBSIDIAN_VAULT_PATH || '';
+  const dailyNotesFolder = config.obsidian?.dailyNotesFolder || 'Daily Notes';
+  const today = new Date();
+  const dateStr = today.toISOString().split('T')[0];
+  return path.join(vaultPath, dailyNotesFolder, `${dateStr}.md`);
+}
+
+function loadConfigSync() {
+  try {
+    const data = require('fs').readFileSync(CONFIG_PATH, 'utf8');
+    return JSON.parse(data);
+  } catch (e) {
+    return {};
+  }
+}
+
+async function logToObsidian(task) {
+  const config = await loadConfig();
+  if (!config.obsidian?.autoLog) {
+    return { success: false, error: 'Auto-log to Obsidian disabled' };
+  }
+
+  const dailyNotePath = getDailyNotePath();
+  const fsPromises = require('fs').promises;
+  
+  const taskLog = `\n## ✅ Completed Task\n- **${task.title}** - ${new Date().toLocaleTimeString('ja-JP')}\n  - Priority: ${task.priority}\n  - Status: ${task.status}\n`;
+
+  try {
+    await fsPromises.mkdir(path.dirname(dailyNotePath), { recursive: true });
+    
+    let existingContent = '';
+    try {
+      existingContent = await fsPromises.readFile(dailyNotePath, 'utf8');
+    } catch (e) {
+      existingContent = `# ${new Date().toISOString().split('T')[0]}\n\n`;
+    }
+
+    const updatedContent = existingContent + taskLog;
+    await fsPromises.writeFile(dailyNotePath, updatedContent, 'utf8');
+    
+    console.log(`📝 Logged task to Obsidian: ${dailyNotePath}`);
+    return { success: true, path: dailyNotePath };
+  } catch (e) {
+    console.error('❌ Failed to log to Obsidian:', e.message);
+    return { success: false, error: e.message };
+  }
+}
+
 module.exports = {
   run,
   displayTaskList,
   completeTask,
   updateProgress,
-  addTask
+  addTask,
+  getDailyNotePath,
+  logToObsidian
 };

@@ -1,9 +1,26 @@
 {
   "schedule": {
     "enabled": true,
-    "cron": "0 8,20 * * *",
+    "cron": "0 7 * * *",
+    "time": "07:00",
     "timezone": "Asia/Tokyo",
-    "description": "朝8時と夜20時に自動実行"
+    "description": "毎朝7時に自動実行"
+  },
+  "discord": {
+    "channelId": null,
+    "webhookUrl": null,
+    "enabled": true
+  },
+  "googleCalendar": {
+    "credentialsPath": "./credentials.json",
+    "tokenPath": "./token.json",
+    "enabled": true
+  },
+  "weather": {
+    "apiKey": null,
+    "location": "Tokyo",
+    "enabled": true,
+    "units": "metric"
   },
   "gmail": {
     "maxResults": 10,

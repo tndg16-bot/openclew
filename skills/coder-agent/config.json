@@ -1,0 +1,48 @@
+{
+  "github": {
+    "enabled": true,
+    "tokenPath": "~/.clawdbot/github-token.txt",
+    "apiBaseUrl": "https://api.github.com",
+    "monitoredRepositories": [
+      {
+        "owner": "tndg16-bot",
+        "repo": "openclew",
+        "labels": ["bug", "good first issue", "help wanted"],
+        "autoFixLabels": ["bug", "good first issue"]
+      }
+    ],
+    "pollInterval": 300000,
+    "maxIssuesPerPoll": 10
+  },
+  "sandbox": {
+    "enabled": true,
+    "containerName": "opencode-sandbox",
+    "imageName": "node:20-slim",
+    "timeout": 60000,
+    "memoryLimit": "512m",
+    "cpuLimit": "1.0",
+    "workDir": "/workspace",
+    "networkDisabled": true
+  },
+  "autoFix": {
+    "enabled": true,
+    "maxAttempts": 3,
+    "confidenceThreshold": 0.8,
+    "allowedFixTypes": ["typo", "simple-bug", "documentation"],
+    "requireConfirmation": true,
+    "createDraftPR": true
+  },
+  "notifications": {
+    "enabled": true,
+    "channels": ["discord"],
+    "onIssueDetected": true,
+    "onAutoFixAttempt": true,
+    "onAutoFixSuccess": true,
+    "onAutoFixFailure": true
+  },
+  "logging": {
+    "level": "info",
+    "logDir": "./logs",
+    "maxLogFiles": 10
+  }
+}

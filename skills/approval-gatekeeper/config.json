@@ -1,0 +1,8 @@
+{
+  "discord": {
+    "channelId": "",
+    "webhookUrl": ""
+  },
+  "timeoutMinutes": 5,
+  "highRiskThresholdEth": "0.05"
+}

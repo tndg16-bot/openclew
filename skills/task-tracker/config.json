@@ -45,5 +45,10 @@
     "channelId": null,
     "dm": true,
     "format": "detailed"
+  },
+  "obsidian": {
+    "vaultPath": "C:\\Users\\chatg\\Obsidian Vault",
+    "dailyNotesFolder": "Daily Notes",
+    "autoLog": true
   }
 }
