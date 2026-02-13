@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "savedAt": "2026-02-08T23:29:27.733Z",
+  "items": [
+    {
+      "id": "f78c4ec1-e190-4528-a382-2dcc679eb1d2",
+      "type": "patterns",
+      "data": {
+        "type": "coding_pattern",
+        "frequency": 10,
+        "timeOfDay": "afternoon",
+        "confidence": 0.85
+      },
+      "accessLevel": "protected",
+      "creator": "self-learning-agent",
+      "createdAt": "2026-02-08T23:29:27.612Z",
+      "updatedAt": "2026-02-08T23:29:27.612Z",
+      "expiresAt": "2026-03-10T23:29:27.612Z",
+      "tags": [
+        "pattern",
+        "coding_pattern"
+      ],
+      "metadata": {
+        "confidence": 0.85
+      }
+    },
+    {
+      "id": "c1a9ad46-1709-4610-9388-32927705beda",
+      "type": "tasks",
+      "data": {
+        "id": "task-123",
+        "title": "Test task",
+        "status": "pending",
+        "priority": "high"
+      },
+      "accessLevel": "public",
+      "creator": "task-tracker",
+      "createdAt": "2026-02-08T23:29:27.614Z",
+      "updatedAt": "2026-02-08T23:29:27.615Z",
+      "expiresAt": null,
+      "tags": [
+        "task",
+        "pending"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "8068cef5-ea39-4122-8da3-f1f8199d08e8",
+      "type": "user_profile",
+      "data": {
+        "name": "Updated User",
+        "preferences": {
+          "theme": "dark"
+        }
+      },
+      "accessLevel": "protected",
+      "creator": "personalized-ai-agent",
+      "createdAt": "2026-02-08T23:29:27.621Z",
+      "updatedAt": "2026-02-08T23:29:27.623Z",
+      "expiresAt": null,
+      "tags": [
+        "user",
+        "profile"
+      ],
+      "metadata": {}
+    }
+  ]
+}

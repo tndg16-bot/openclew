@@ -1,0 +1,40 @@
+{
+  "logging": {
+    "enabled": true,
+    "logPath": "logs/errors.log",
+    "maxLogSize": "10M",
+    "maxLogFiles": 5,
+    "logLevel": "info",
+    "structuredLogging": true,
+    "includeStackTrace": true,
+    "timestampFormat": "iso"
+  },
+  "recovery": {
+    "enabled": true,
+    "maxRetries": 3,
+    "retryDelay": 1000,
+    "exponentialBackoff": true,
+    "backoffMultiplier": 2,
+    "maxBackoffDelay": 30000
+  },
+  "alerts": {
+    "enabled": true,
+    "criticalThreshold": 5,
+    "highThreshold": 10,
+    "alertWindow": 300,
+    "alertChannels": ["general"],
+    "cooldownPeriod": 300
+  },
+  "monitoring": {
+    "enabled": true,
+    "healthCheckInterval": 60,
+    "statsRetentionDays": 30,
+    "trackErrorPatterns": true,
+    "trackRecoveryRate": true
+  },
+  "storage": {
+    "errorLogPath": "skills/error-handler/data/errors.json",
+    "statsPath": "skills/error-handler/data/stats.json",
+    "healthPath": "skills/error-handler/data/health.json"
+  }
+}

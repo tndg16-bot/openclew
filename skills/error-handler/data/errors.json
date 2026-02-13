@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "savedAt": "2026-02-09T00:21:04.779Z",
+  "errors": [
+    {
+      "id": "err_1770596464779_lax8akh8g",
+      "timestamp": "2026-02-09T00:21:04.779Z",
+      "type": "network",
+      "severity": "high",
+      "source": "test-skill",
+      "operation": "connectToDatabase",
+      "message": "Connection refused",
+      "stackTrace": "Error: Connection refused\n    at C:\\Users\\chatg\\openclew\\skills\\error-handler\\index.js:917:19",
+      "context": {
+        "source": "test-skill",
+        "operation": "connectToDatabase",
+        "userId": "test123"
+      },
+      "recovered": true,
+      "retryCount": 0
+    }
+  ],
+  "stats": {
+    "total": 1,
+    "byType": {
+      "network": 1
+    },
+    "bySeverity": {
+      "high": 1
+    },
+    "recovered": 1,
+    "notRecovered": 0,
+    "recoveryRate": 1
+  }
+}
