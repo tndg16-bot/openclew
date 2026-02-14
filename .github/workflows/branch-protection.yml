@@ -9,6 +9,9 @@ jobs:
   protect-main:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Check main branch protection
         run: |
           git branch --list origin/main
@@ -23,6 +26,9 @@ jobs:
   check-workflows:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Verify branch protection setup
         run: |
           echo "Branch protection configured"
