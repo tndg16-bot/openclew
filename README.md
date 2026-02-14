@@ -1,5 +1,7 @@
 # Clawdbot - 汎用AIエージェント
 
+> GitHub Actions Test - This is a test to verify workflow execution
+
 自分のPCで飼う、対話により自己進化する汎用AIエージェント。
 
 ## 概要
