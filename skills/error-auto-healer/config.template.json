@@ -1,10 +1,15 @@
 {
-  "version": "2.0.0",
+  "version": "3.0.0",
   "mode": "auto",
   "monitoring": {
     "intervalMinutes": 2,
     "gmailLabel": "error-notifications",
     "processedLabel": "error-auto-healed"
+  },
+  "apiMonitoring": {
+    "intervalMinutes": 5,
+    "dailySummaryHour": 8,
+    "dailySummaryMinute": 0
   },
   "github": {
     "token": "YOUR_GITHUB_TOKEN",
@@ -40,6 +45,7 @@
   },
   "discord": {
     "webhookUrl": "YOUR_DISCORD_WEBHOOK_URL",
+    "channelId": "1471769660948086785",
     "notifyOn": {
       "errorDetected": true,
       "healingStarted": true,
@@ -47,7 +53,9 @@
       "healingFailed": true,
       "issueCreated": true,
       "prCreated": true,
-      "maxRetriesReached": true
+      "maxRetriesReached": true,
+      "criticalApiError": true,
+      "dailySummary": true
     }
   },
   "safety": {

@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "description": "Event-driven error monitoring schedule for error-auto-healer",
+  "timezone": "Asia/Tokyo",
+  "jobs": [
+    {
+      "id": "api-monitor",
+      "name": "API Error Monitor",
+      "enabled": true,
+      "schedule": "*/5 * * * *",
+      "command": "node api-monitor.js once",
+      "description": "Check Gmail API and GitHub API errors every 5 minutes",
+      "workingDirectory": "./skills/error-auto-healer",
+      "environment": {
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "id": "daily-summary",
+      "name": "Daily Summary Notification",
+      "enabled": true,
+      "schedule": "0 8 * * *",
+      "command": "node api-monitor.js summary",
+      "description": "Send daily summary at 8 AM JST",
+      "workingDirectory": "./skills/error-auto-healer",
+      "environment": {
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "id": "healer-monitor",
+      "name": "CI/CD Error Monitor",
+      "enabled": false,
+      "schedule": "*/10 * * * *",
+      "command": "node monitor.js check",
+      "description": "Check Gmail for CI/CD error notifications (disabled - using event-driven approach)",
+      "workingDirectory": "./skills/error-auto-healer",
+      "environment": {
+        "NODE_ENV": "production"
+      },
+      "comment": "Disabled - migrating to event-driven API monitoring"
+    }
+  ],
+  "legacy": {
+    "disabledJobs": [
+      {
+        "id": "gmail-scan",
+        "comment": "Replaced by api-monitor job"
+      },
+      {
+        "id": "github-scan",
+        "comment": "Replaced by api-monitor job"
+      },
+      {
+        "id": "discord-error-check",
+        "comment": "Replaced by api-monitor job"
+      }
+    ],
+    "migrationDate": "2026-02-15",
+    "reason": "Migrating from periodic scans to event-driven API error detection"
+  }
+}
